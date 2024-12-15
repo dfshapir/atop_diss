@@ -14,12 +14,46 @@ library(readr)
 ```{r}
 # Reading in initial ATOP data; parsing out four case study countries.
 
-atop <- read.csv("atop5_1sy.csv") %>%
+atop_stateyear <- read.csv("atop5_1sy.csv") %>%
   filter(state %in% c(371, 372, 702, 703)) %>%
 
 # Removing un-utilized columns  
 
    select(1:29)
+
+# Reading in ATOP dyad-year data; parsing out four case study countries. First, Georgia
+
+atop_dyadyear <- read.csv("atop5_1dy.csv") 
+
+atop_dyadgeorgia <- atop_dyadyear %>%
+  filter(year >= 1991) %>%
+  filter(grepl("371", as.character(dyad))) %>%
+  
+# Filtered out incorrect dyads
+  
+  filter(dyad < 700000)
+
+atop_dyadarmenia <- atop_dyadyear %>%
+  filter(year >= 1991) %>%
+  filter(grepl("372", as.character(dyad)))
+
+atop_dyadtajikistan <- atop_dyadyear %>%
+  filter(year >= 1991) %>%
+  filter(grepl("702", as.character(dyad)))
+
+atop_dyadkyrgyzstan <- atop_dyadyear %>%
+  filter(year >= 1991) %>%
+  filter(grepl("703", as.character(dyad))) %>%
+  
+# Removing incorrect dyads
+  
+  filter(dyad != 370371) %>%
+  filter(dyad != 370372) %>%
+  filter(dyad != 370373) %>%
+  filter(dyad != 370380) %>%
+  filter(dyad != 370385) %>%
+  filter(dyad != 370390) %>%
+  filter(dyad != 370395)
 
 ```
 
