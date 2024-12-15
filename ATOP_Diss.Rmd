@@ -1,0 +1,25 @@
+---
+title: "ATOP Diss"
+author: "Daniel Shapiro"
+date: "2024-12-15"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+library(readr)
+```
+
+```{r}
+# Reading in initial ATOP data; parsing out four case study countries.
+
+atop <- read.csv("atop5_1sy.csv") %>%
+  filter(state %in% c(371, 372, 702, 703)) %>%
+
+# Removing un-utilized columns  
+
+   select(1:29)
+
+```
+
